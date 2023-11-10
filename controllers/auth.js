@@ -1,5 +1,7 @@
 const User = require('../models/User');
+const ErrorResponse = require('../utils/errorResponse');
 
+// POST => /api/v1/auth/register
 exports.register = async (req, res, next) => {
   try {
     const { name, email, password } = req.body;
@@ -12,12 +14,41 @@ exports.register = async (req, res, next) => {
 
     res.status(200).json({ success: true, token });
   } catch (error) {
-    if (error.name === 'ValidationError') {
-      const messages = Object.values(error.errors).map((val) => val.message);
-      return res.status(400).json({ success: false, error: messages });
-    } else {
-      console.log(error);
-      return res.status(500).json({ success: false, error: 'Server error' });
+    next(error);
+  }
+};
+
+// POST => /api/v1/auth/login
+exports.login = async (req, res, next) => {
+  try {
+    const { email, password } = req.body;
+
+    // Validate email & password
+    if (!email || !password) {
+      return next(
+        new ErrorResponse('Please provide an email and password.', 400)
+      );
     }
+
+    // Check for user
+    const user = await User.findOne({ email: email }).select('+password');
+
+    if (!user) {
+      return next(new ErrorResponse('Invalid credentials.', 401));
+    }
+
+    // Check if password matches
+    const isMatch = await user.matchPassword(password);
+
+    if (!isMatch) {
+      return next(new ErrorResponse('Invalid credentials.', 401));
+    }
+
+    // Create token
+    const token = user.getSignedJwtToken();
+
+    res.status(200).json({ success: true, token });
+  } catch (error) {
+    next(error);
   }
 };
