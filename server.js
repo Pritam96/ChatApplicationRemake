@@ -36,3 +36,6 @@ app.listen(
     `Server is running in ${process.env.NODE_ENV} mode on port: ${PORT}`
   )
 );
+
+app.use(express.static("./src"));
+app.get("/", (req, res, next) => res.sendFile("index.html"));

@@ -1,0 +1,94 @@
+@import url("https://fonts.googleapis.com/css2?family=Inconsolata&display=swap");
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  font-family: "Inconsolata", monospace;
+}
+
+body {
+  background-color: #f4f4f4;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+  margin: 0;
+}
+
+.heading {
+  text-align: center;
+  padding: 25px;
+  font-size: 28px;
+  color: #333;
+}
+
+.container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+}
+
+.form-card {
+  background-color: #fff;
+  border-radius: 8px;
+  box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.1);
+  padding: 20px;
+  text-align: center;
+  width: 300px;
+}
+
+.form-group {
+  margin-bottom: 16px;
+}
+
+.form-label {
+  font-size: 18px;
+  font-weight: bold;
+  margin-bottom: 5px;
+  display: block;
+}
+
+.form-input {
+  font-size: 16px;
+  padding: 10px;
+  width: 100%;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  margin-top: 5px;
+  box-sizing: border-box;
+}
+
+.form-button {
+  font-size: 16px;
+  font-weight: bold;
+  background-color: #3498db;
+  color: #fff;
+  padding: 10px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  margin-top: 15px;
+}
+
+.form-button:hover {
+  background-color: #2980b9;
+}
+
+.option-link {
+  margin-top: 15px;
+  font-size: 14px;
+  color: #555;
+}
+
+.option-link a {
+  color: #3498db;
+  text-decoration: none;
+}
+
+.alert-message {
+  margin-top: 15px;
+  font-size: 14px;
+  color: red;
+}

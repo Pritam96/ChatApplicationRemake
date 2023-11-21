@@ -1,0 +1,139 @@
+@import url("https://fonts.googleapis.com/css2?family=Inconsolata&display=swap");
+
+/* index css */
+
+* {
+  padding: 0;
+  margin: 0;
+  /* border: 0.25px solid black; */
+  font-family: "Inconsolata", monospace;
+}
+
+.heading {
+  padding: 25px;
+  text-align: center;
+  border-bottom: 0.25px solid black;
+}
+
+.main {
+  border-bottom: 0.25px solid black;
+}
+
+table {
+  width: 100%;
+  background-color: antiquewhite;
+}
+
+#usersWindow {
+  width: 30%;
+}
+
+ul {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+}
+
+#usersWindow ul {
+  max-height: 70vh;
+  overflow-y: auto;
+  margin-left: 10px;
+  margin-right: 10px;
+}
+
+#chatWindow {
+  padding: 10px;
+}
+
+.list-user {
+  margin-bottom: 10px;
+}
+
+.card-user {
+  padding: 15px;
+  background-color: aliceblue;
+  border: 0.25px solid black;
+  border-radius: 12px;
+  margin-right: 10px;
+}
+
+.card-user:hover {
+  background-color: #90cbfe;
+}
+
+.card-user__name {
+  font-size: 20px;
+  font-weight: bold;
+}
+
+.message-container {
+  display: flex;
+  margin-bottom: 10px;
+  margin-right: 10px;
+  justify-content: flex-end;
+}
+
+.left {
+  justify-content: flex-start;
+}
+
+.message-content {
+  width: 40%;
+  padding: 15px 15px;
+  background-color: aliceblue;
+  border: 0.25px solid black;
+  border-radius: 12px;
+}
+
+.message-content__name {
+  font-size: 20px;
+  padding-bottom: 10px;
+  font-weight: bold;
+}
+
+.message-content__message {
+  font-size: medium;
+}
+
+.card-user > p {
+  padding: 5px 0 5px 5px;
+}
+
+#chat-section {
+  border-radius: 12px;
+  overflow: hidden;
+  max-height: 63vh;
+  overflow-y: auto;
+  margin-right: 10px;
+  margin-left: 10px;
+}
+
+#user-input-section {
+  margin-top: 10px;
+  display: block;
+  justify-content: center;
+}
+
+#input-message {
+  width: 80%;
+  font-size: medium;
+  padding: 15px 15px;
+  margin-left: 10px;
+  border-radius: 10px;
+}
+
+#send-message-button {
+  font-size: medium;
+  width: 100px;
+  margin: 10px 10px;
+  padding: 10px 10px;
+  border-radius: 10px;
+}
+
+.alert-danger {
+  color: red;
+}
+
+.alert-success {
+  color: greenyellow;
+}
