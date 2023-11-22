@@ -6,11 +6,11 @@ const ErrorResponse = require("../utils/errorResponse");
 exports.accessCreateChat = async (req, res, next) => {
   const { userId } = req.body;
   if (!userId) {
-    return next(new ErrorResponse("userId param missing", 400));
+    return next(new ErrorResponse("userId param is missing", 400));
   }
 
   try {
-    const chat = await Chat.findOne({
+    let chat = await Chat.findOne({
       isGroupChat: false,
       $and: [
         {
@@ -24,18 +24,14 @@ exports.accessCreateChat = async (req, res, next) => {
       .populate("members", "-password")
       .populate("latestMessage");
 
-    // console.log("CHAT", chat);
-
     // populating certain fields under latestMessage(Message model)
-    const chatDetails = await User.populate(chat, {
+    chat = await User.populate(chat, {
       path: "latestMessage.sender",
       select: "name email",
     });
 
-    console.log("CHAT DETAILS WITH LATEST MESSAGE", chatDetails);
-
-    if (chatDetails) {
-      res.status(200).json({ success: true, data: chatDetails });
+    if (chat) {
+      res.status(200).json({ success: true, data: chat });
     } else {
       const newChat = await Chat.create({
         members: [req.user._id, userId],
@@ -45,8 +41,6 @@ exports.accessCreateChat = async (req, res, next) => {
         "members",
         "-password"
       );
-
-      console.log("NEWLY CREATED CHAT WITH LATEST MESSAGE", chat);
 
       res.status(200).json({ success: true, data: chat });
     }

@@ -1,4 +1,4 @@
-const ErrorResponse = require('../utils/errorResponse');
+const ErrorResponse = require("../utils/errorResponse");
 
 const errorHandler = (err, req, res, next) => {
   let error = { ...err };
@@ -11,13 +11,13 @@ const errorHandler = (err, req, res, next) => {
   // console.log(err.name);
 
   // Validation Error - required fields missing
-  if (err.name === 'ValidationError') {
+  if (err.name === "ValidationError") {
     const messages = Object.values(err.errors).map((error) => error.message);
     error = new ErrorResponse(messages, 400);
   }
 
   // Cast Error - Mongoose bad objectId
-  if (err.name === 'CastError') {
+  if (err.name === "CastError") {
     const message = `Resource not found with id of ${err.value}`;
     error = new ErrorResponse(message, 404);
   }
@@ -31,7 +31,7 @@ const errorHandler = (err, req, res, next) => {
 
   res
     .status(error.statusCode || 500)
-    .json({ success: false, error: error.message || 'Server Error' });
+    .json({ success: false, error: error.message || "Server Error" });
 };
 
 module.exports = errorHandler;

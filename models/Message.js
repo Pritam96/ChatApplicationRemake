@@ -4,10 +4,21 @@ const Chat = require("./Chat");
 
 const MessageSchema = new mongoose.Schema(
   {
-    sender: { type: mongoose.Schema.Types.ObjectId, ref: "User" },
-    content: { type: String, trim: true },
-    chat: { type: mongoose.Schema.Types.ObjectId, ref: "Chat" },
-    createdAt: { type: Date, default: Date.now() },
+    chat: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "Chat",
+      required: [true, "chatId is missing"],
+    },
+    sender: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "User",
+      required: [true, "senderId is missing"],
+    },
+    content: {
+      type: String,
+      trim: true,
+      required: [true, "content is missing"],
+    },
   },
   { timestamps: true }
 );
