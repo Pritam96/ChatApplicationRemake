@@ -15,6 +15,10 @@
   border-bottom: 0.25px solid black;
 }
 
+.text-center {
+  text-align: center;
+}
+
 .main {
   border-bottom: 0.25px solid black;
 }
@@ -45,6 +49,10 @@ ul {
   padding: 10px;
 }
 
+#chat-section {
+  height: 70vh;
+}
+
 .list-user {
   margin-bottom: 10px;
 }
@@ -57,7 +65,8 @@ ul {
   margin-right: 10px;
 }
 
-.card-user:hover {
+.card-user:hover,
+.active {
   background-color: #90cbfe;
 }
 
@@ -110,11 +119,15 @@ ul {
 
 #user-input-section {
   margin-top: 10px;
-  display: block;
+  /* display: block; */
   justify-content: center;
 }
 
-#input-message {
+.hidden {
+  display: none;
+}
+
+#message-input {
   width: 80%;
   font-size: medium;
   padding: 15px 15px;
