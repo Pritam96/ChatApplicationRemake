@@ -66,3 +66,8 @@ socket.on("connect_error", (error) => {
 socket.on("connect_timeout", () => {
   console.error("Socket connection timeout");
 });
+
+socket.on("disconnect", () => {
+  console.log("Socket disconnected");
+  localStorage.removeItem("isSocketConnected");
+});

@@ -70,3 +70,117 @@ exports.getChats = async (req, res, next) => {
     next(error);
   }
 };
+
+// POST => /api/v1/auth/chats/group <= title, members array
+exports.createGroupChat = async (req, res, next) => {
+  if (!req.body.members || !req.body.title) {
+    return next(new ErrorResponse("Please provide all the fields", 400));
+  }
+
+  let members = JSON.parse(req.body.members);
+  if (members.length < 2) {
+    return next(
+      new ErrorResponse("minimum three users required to form a group", 400)
+    );
+  }
+
+  members.push(req.user);
+
+  try {
+    const chat = await Chat.create({
+      title: req.body.title,
+      isGroupChat: true,
+      admin: req.user,
+      members: members,
+    });
+
+    const chatDetails = await Chat.findById(chat._id)
+      .populate("members", "-password")
+      .populate("admin", "-password");
+
+    res.status(200).json({ success: true, data: chatDetails });
+  } catch (error) {
+    next(error);
+  }
+};
+
+// PUT => /api/v1/auth/chats/rename <= chatId, title
+exports.renameGroupChat = async (req, res, next) => {
+  const { chatId, title } = req.body;
+
+  try {
+    const updatedChat = await Chat.findByIdAndUpdate(
+      chatId,
+      {
+        title,
+      },
+      {
+        new: true,
+      }
+    )
+      .populate("members", "-password")
+      .populate("admin", "-password");
+
+    if (!updatedChat) {
+      return next(new ErrorResponse("chat not found", 400));
+    } else {
+      res.status(200).json({ success: true, data: updatedChat });
+    }
+  } catch (error) {
+    next(error);
+  }
+};
+
+// PUT => /api/v1/auth/chats/add <= chatId, userId
+exports.addToGroup = async (req, res, next) => {
+  const { chatId, userId } = req.body;
+
+  try {
+    const updatedChat = await Chat.findByIdAndUpdate(
+      chatId,
+      {
+        $push: { members: userId },
+      },
+      {
+        new: true,
+      }
+    )
+      .populate("members", "-password")
+      .populate("admin", "-password");
+
+    if (!updatedChat) {
+      return next(new ErrorResponse("chat not found", 404));
+    } else {
+      res.status(200).json({ success: true, data: updatedChat });
+    }
+  } catch (error) {
+    next(error);
+  }
+};
+
+// PUT => /api/v1/auth/chats/remove <= chatId, userId
+exports.removeFromGroup = async (req, res, next) => {
+  const { chatId, userId } = req.body;
+
+  try {
+    const updatedChat = await Chat.findByIdAndUpdate(
+      chatId,
+      {
+        $pull: { members: userId },
+      },
+      {
+        new: true,
+      }
+    )
+      .populate("members", "-password")
+      .populate("admin", "-password");
+
+    if (!updatedChat) {
+      return next(new ErrorResponse("chat not found", 404));
+    } else {
+      res.status(200).json({ success: true, data: updatedChat });
+    }
+  } catch (error) {
+    next(error);
+  }
+};

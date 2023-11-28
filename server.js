@@ -85,7 +85,10 @@ io.on("connection", (socket) => {
   // newMessage event - receives new message from client and distributes accordingly
   socket.on("newMessage", (newMessage) => {
     let chat = newMessage.chat;
-    if (!chat.members) return console.log("chat users not found");
+    if (!chat.members) {
+      console.log("chat users not found");
+      return;
+    }
 
     // Emit message to each user in the chat except the sender
     chat.members.forEach((user) => {
@@ -97,9 +100,15 @@ io.on("connection", (socket) => {
   });
 
   // Handle disconnection
-  socket.off("setup", () => {
+  socket.on("disconnect", () => {
     console.log("user disconnected");
-    socket.leave(userInfo._id);
+    // Get all rooms for the socket and leave each room
+    Object.keys(socket.rooms).forEach((room) => {
+      if (room !== socket.id) {
+        socket.leave(room);
+        console.log(`Left room: ${room}`);
+      }
+    });
   });
 });
 
