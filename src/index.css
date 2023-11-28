@@ -12,7 +12,9 @@
 .heading {
   padding: 25px;
   text-align: center;
-  border-bottom: 0.25px solid black;
+  background-color: #008069;
+  color: #ffff;
+  /* border-bottom: 0.25px solid black; */
 }
 
 .text-center {
@@ -59,7 +61,7 @@ ul {
 
 .card-user {
   padding: 15px;
-  background-color: aliceblue;
+  background-color: #ffff;
   border: 0.25px solid black;
   border-radius: 12px;
   margin-right: 10px;
@@ -67,7 +69,7 @@ ul {
 
 .card-user:hover,
 .active {
-  background-color: #90cbfe;
+  background-color: #f0f2f5;
 }
 
 .card-user__name {
@@ -89,13 +91,14 @@ ul {
 .message-content {
   width: 40%;
   padding: 15px 15px;
-  background-color: aliceblue;
+  background-color: white;
   border: 0.25px solid black;
   border-radius: 12px;
 }
 
 .message-content__name {
   font-size: 20px;
+  color: #06cf9c;
   padding-bottom: 10px;
   font-weight: bold;
 }

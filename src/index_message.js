@@ -1,3 +1,6 @@
+const sendMessage_button = document.getElementById("send-message-button");
+sendMessage_button.addEventListener("click", sendMessage);
+
 // * GETTING ALL MESSAGES FOR THE CURRENTLY SELECTED CHAT
 async function accessChatMessages() {
   const chat = getCurrentChatInfo();
@@ -12,7 +15,6 @@ async function accessChatMessages() {
       },
     });
 
-    // console.log(response.data.count);
     if (response.data.count > 0) {
       createMessageElements(response.data.data);
     } else {
@@ -21,12 +23,15 @@ async function accessChatMessages() {
         "No messages available"
       );
     }
+
+    // Creating new chat room using socket
+    socket.emit("joinChat", chat._id);
   } catch (error) {
     console.log(error);
   }
 }
 
-// * CREATING MESSAGE UI ELEMENTS
+// * SENDING MESSAGE ITEMS ONE BY ONE TO THE MESSAGE ELEMENT
 function createMessageElements(messages, receiverName) {
   const chatSection = document.getElementById("chat-section");
   chatSection.innerText = "";
@@ -34,15 +39,18 @@ function createMessageElements(messages, receiverName) {
   messages.forEach((message) => {
     const div_element__message_container = document.createElement("div");
     div_element__message_container.classList.add("message-container");
-    if (message.sender._id.toString() === currentlyLoggedUser._id.toString()) {
-      div_element__message_container.classList.add("right");
-    } else {
-      div_element__message_container.classList.add("left");
-    }
     chatSection.appendChild(div_element__message_container);
 
     const div_element__message_content = document.createElement("div");
     div_element__message_content.classList.add("message-content");
+
+    if (message.sender._id.toString() === currentlyLoggedUser._id.toString()) {
+      div_element__message_container.classList.add("right");
+      div_element__message_content.style.backgroundColor = "#d9fdd3";
+    } else {
+      div_element__message_container.classList.add("left");
+    }
+
     div_element__message_container.appendChild(div_element__message_content);
 
     const p_element__message_content_name = document.createElement("p");
@@ -85,8 +93,11 @@ async function sendMessage(e) {
       }
     );
 
-    await accessChatMessages();
     message_content.value = "";
+    socket.emit("newMessage", response.data.data);
+    await accessChatMessages();
+    await showChats();
+    scrollToBottom();
   } catch (error) {
     console.log(error);
   }

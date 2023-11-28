@@ -59,9 +59,9 @@ function createChatElements(chats) {
 
     const li_element = document.createElement("li");
     li_element.classList.add("list-user");
-    li_element.addEventListener("click", () => {
+    li_element.addEventListener("click", async () => {
       localStorage.setItem("CurrentChat", JSON.stringify(chat));
-      accessChatMessages();
+      await accessChatMessages();
     });
     ul_element.appendChild(li_element);
 
