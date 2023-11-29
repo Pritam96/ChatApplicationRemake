@@ -10,11 +10,23 @@
 }
 
 .heading {
+  display: flex;
+  align-items: center;
   padding: 25px;
-  text-align: center;
   background-color: #008069;
   color: #ffff;
   /* border-bottom: 0.25px solid black; */
+}
+
+.heading > input {
+  margin-right: 10px;
+  font-size: medium;
+  padding: 10px 10px;
+  border-radius: 10px;
+}
+
+.heading > h1 {
+  margin-right: 25px;
 }
 
 .text-center {
@@ -144,6 +156,37 @@ ul {
   margin: 10px 10px;
   padding: 10px 10px;
   border-radius: 10px;
+}
+
+#searchResults {
+  width: 70%;
+  display: none;
+}
+
+#searchResultsList {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+}
+
+.search-result {
+  padding: 10px;
+  background-color: #ffff;
+  border: 0.25px solid black;
+  border-radius: 10px;
+  margin-left: 10px;
+  margin-top: 10px;
+  cursor: pointer;
+  font-weight: bold;
+}
+
+.search-result__email {
+  color: #06cf9c;
+  margin-left: 10px;
+}
+
+.search-result:hover {
+  background-color: #f0f2f5;
 }
 
 .alert-danger {

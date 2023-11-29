@@ -8,10 +8,32 @@
     <link rel="stylesheet" href="index.css" />
   </head>
   <body>
-    <h1 class="heading">ChatApp</h1>
+    <div class="heading">
+      <h1>ChatApp</h1>
+      <input
+        type="search"
+        name="search_user"
+        id="search_user"
+        placeholder="Search here"
+      />
+    </div>
+
     <div class="main">
       <table>
         <tr id="mainWindow">
+          <td id="searchResults" style="display: block">
+            <ul id="searchResultsList">
+              <!-- <li class="search-result">
+                User1<span class="search-result__email">user@example.com</span>
+              </li>
+              <li class="search-result">
+                User1<span class="search-result__email">user@example.com</span>
+              </li>
+              <li class="search-result">
+                User1<span class="search-result__email">user@example.com</span>
+              </li> -->
+            </ul>
+          </td>
           <td id="usersWindow">
             <ul>
               <!-- <li class="list-user">
@@ -95,6 +117,7 @@
     <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
     <script src="https://cdn.socket.io/4.7.2/socket.io.min.js"></script>
     <script src="./urls.js"></script>
+    <script src="./index_search.js"></script>
     <script src="./index_user.js"></script>
     <script src="./index_chat.js"></script>
     <script src="./index_message.js"></script>
