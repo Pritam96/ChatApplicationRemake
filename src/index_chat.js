@@ -35,9 +35,6 @@ function createChatElements(chats) {
   const usersWindow = document.getElementById("usersWindow");
   usersWindow.innerText = "";
 
-  const ul_element = document.createElement("ul");
-  usersWindow.appendChild(ul_element);
-
   chats.forEach(async (chat) => {
     let chatName;
     if (chat.isGroupChat) {
@@ -63,7 +60,7 @@ function createChatElements(chats) {
       localStorage.setItem("CurrentChat", JSON.stringify(chat));
       await accessChatMessages();
     });
-    ul_element.appendChild(li_element);
+    usersWindow.appendChild(li_element);
 
     const div_element = document.createElement("div");
     div_element.classList.add("card-user");

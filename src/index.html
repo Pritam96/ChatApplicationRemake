@@ -21,7 +21,25 @@
     <div class="main">
       <table>
         <tr id="mainWindow">
-          <td id="searchResults" style="display: block">
+          <td id="searchResults" style="display: none">
+            <div id="create-group-section">
+              <input
+                type="checkbox"
+                name="create-group-check"
+                id="create-group-check"
+              />
+              <label for="create-group-check" id="create-group-check__label"
+                >Group</label
+              >
+              <input
+                type="text"
+                name="create-group-title"
+                id="create-group-title"
+                placeholder="Group name"
+                disabled
+              />
+              <button id="create-group-button" disabled>Create</button>
+            </div>
             <ul id="searchResultsList">
               <!-- <li class="search-result">
                 User1<span class="search-result__email">user@example.com</span>
@@ -34,8 +52,9 @@
               </li> -->
             </ul>
           </td>
-          <td id="usersWindow">
-            <ul>
+          <td id="td_usersWindow">
+            <!-- <button id="create-group-button">Create Group</button> -->
+            <div id="usersWindow">
               <!-- <li class="list-user">
                 <div class="card-user active">
                   <p class="card-user__name">Example</p>
@@ -54,7 +73,7 @@
                   <p class="card-user__message">example@gmail.com</p>
                 </div>
               </li> -->
-            </ul>
+            </div>
           </td>
           <td id="chatWindow">
             <div id="chat-section">
